@@ -16,15 +16,6 @@ public class SuLiNanApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(SuLiNanApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  苏立南系统启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
-                " .-------.       ____     __        \n" +
-                " |  _ _   \\      \\   \\   /  /    \n" +
-                " | ( ' )  |       \\  _. /  '       \n" +
-                " |(_ o _) /        _( )_ .'         \n" +
-                " | (_,_).' __  ___(_ o _)'          \n" +
-                " |  |\\ \\  |  ||   |(_,_)'         \n" +
-                " |  | \\ `'   /|   `-'  /           \n" +
-                " |  |  \\    /  \\      /           \n" +
-                " ''-'   `'-'    `-..-'              ");
+        System.out.println("(♥◠‿◠)ﾉﾞ  苏里南系统启动成功   ლ(´ڡ`ლ)ﾞ ");
     }
 }

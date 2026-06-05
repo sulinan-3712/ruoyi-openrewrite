@@ -1,0 +1,9 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.sulinan.RefactorRuoYiToSuLiNan
+displayName: Refactor RuoYi to SuLiNan
+description: Rename package from com.ruoyi to com.sulinan and rename classes with RuoYi prefix to SuLiNan prefix.
+recipeList:
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: com.ruoyi
+      newPackageName: com.sulinan
+      recursive: true

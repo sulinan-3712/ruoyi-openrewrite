@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
+  "name": "sulinan",
   "version": "3.9.2",
-  "description": "若依管理系统",
-  "author": "若依",
+  "description": "苏里南管理系统",
+  "author": "苏里南",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
+    "url": "https://github.com/sulinan-3712/ruoyi-openrewrite"
   },
   "dependencies": {
     "@riophae/vue-treeselect": "0.4.0",
@@ -30,6 +30,7 @@
     "core-js": "3.37.1",
     "echarts": "5.4.0",
     "element-ui": "2.15.14",
+    "express": "^5.2.1",
     "file-saver": "2.0.5",
     "fuse.js": "6.4.3",
     "highlight.js": "9.18.5",

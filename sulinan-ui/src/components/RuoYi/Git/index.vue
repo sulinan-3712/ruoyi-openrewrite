@@ -9,7 +9,7 @@ export default {
   name: 'SuLiNanGit',
   data() {
     return {
-      url: 'https://gitee.com/sulinan/SuLiNan-Vue'
+      url: 'https://github.com/sulinan-3712/ruoyi-openrewrite'
     }
   },
   methods: {

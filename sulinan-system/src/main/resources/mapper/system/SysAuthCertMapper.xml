@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sulinan.system.mapper.SysAuthCertMapper">
+    
+    <resultMap type="SysAuthCert" id="SysAuthCertResult">
+        <result property="certId"    column="cert_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="certType"    column="cert_type"    />
+        <result property="certNo"    column="cert_no"    />
+        <result property="certName"    column="cert_name"    />
+        <result property="issueAuthority"    column="issue_authority"    />
+        <result property="issueDate"    column="issue_date"    />
+        <result property="expiryDate"    column="expiry_date"    />
+        <result property="certStatus"    column="cert_status"    />
+        <result property="auditUserId"    column="audit_user_id"    />
+        <result property="auditTime"    column="audit_time"    />
+        <result property="auditRemark"    column="audit_remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysAuthCertVo">
+        select cert_id, user_id, cert_type, cert_no, cert_name, issue_authority, issue_date, expiry_date, cert_status, audit_user_id, audit_time, audit_remark, create_by, create_time, update_by, update_time, remark from sys_auth_cert
+    </sql>
+
+    <select id="selectSysAuthCertList" parameterType="SysAuthCert" resultMap="SysAuthCertResult">
+        <include refid="selectSysAuthCertVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="certType != null  and certType != ''"> and cert_type = #{certType}</if>
+            <if test="certNo != null  and certNo != ''"> and cert_no = #{certNo}</if>
+            <if test="certName != null  and certName != ''"> and cert_name like concat('%', #{certName}, '%')</if>
+            <if test="issueAuthority != null  and issueAuthority != ''"> and issue_authority = #{issueAuthority}</if>
+            <if test="issueDate != null "> and issue_date = #{issueDate}</if>
+            <if test="expiryDate != null "> and expiry_date = #{expiryDate}</if>
+            <if test="certStatus != null  and certStatus != ''"> and cert_status = #{certStatus}</if>
+            <if test="auditUserId != null "> and audit_user_id = #{auditUserId}</if>
+            <if test="auditTime != null "> and audit_time = #{auditTime}</if>
+            <if test="auditRemark != null  and auditRemark != ''"> and audit_remark = #{auditRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysAuthCertByCertId" parameterType="Long" resultMap="SysAuthCertResult">
+        <include refid="selectSysAuthCertVo"/>
+        where cert_id = #{certId}
+    </select>
+
+    <insert id="insertSysAuthCert" parameterType="SysAuthCert" useGeneratedKeys="true" keyProperty="certId">
+        insert into sys_auth_cert
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="certType != null and certType != ''">cert_type,</if>
+            <if test="certNo != null and certNo != ''">cert_no,</if>
+            <if test="certName != null">cert_name,</if>
+            <if test="issueAuthority != null">issue_authority,</if>
+            <if test="issueDate != null">issue_date,</if>
+            <if test="expiryDate != null">expiry_date,</if>
+            <if test="certStatus != null">cert_status,</if>
+            <if test="auditUserId != null">audit_user_id,</if>
+            <if test="auditTime != null">audit_time,</if>
+            <if test="auditRemark != null">audit_remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="certType != null and certType != ''">#{certType},</if>
+            <if test="certNo != null and certNo != ''">#{certNo},</if>
+            <if test="certName != null">#{certName},</if>
+            <if test="issueAuthority != null">#{issueAuthority},</if>
+            <if test="issueDate != null">#{issueDate},</if>
+            <if test="expiryDate != null">#{expiryDate},</if>
+            <if test="certStatus != null">#{certStatus},</if>
+            <if test="auditUserId != null">#{auditUserId},</if>
+            <if test="auditTime != null">#{auditTime},</if>
+            <if test="auditRemark != null">#{auditRemark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysAuthCert" parameterType="SysAuthCert">
+        update sys_auth_cert
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="certType != null and certType != ''">cert_type = #{certType},</if>
+            <if test="certNo != null and certNo != ''">cert_no = #{certNo},</if>
+            <if test="certName != null">cert_name = #{certName},</if>
+            <if test="issueAuthority != null">issue_authority = #{issueAuthority},</if>
+            <if test="issueDate != null">issue_date = #{issueDate},</if>
+            <if test="expiryDate != null">expiry_date = #{expiryDate},</if>
+            <if test="certStatus != null">cert_status = #{certStatus},</if>
+            <if test="auditUserId != null">audit_user_id = #{auditUserId},</if>
+            <if test="auditTime != null">audit_time = #{auditTime},</if>
+            <if test="auditRemark != null">audit_remark = #{auditRemark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where cert_id = #{certId}
+    </update>
+
+    <delete id="deleteSysAuthCertByCertId" parameterType="Long">
+        delete from sys_auth_cert where cert_id = #{certId}
+    </delete>
+
+    <delete id="deleteSysAuthCertByCertIds" parameterType="String">
+        delete from sys_auth_cert where cert_id in 
+        <foreach item="certId" collection="array" open="(" separator="," close=")">
+            #{certId}
+        </foreach>
+    </delete>
+</mapper>

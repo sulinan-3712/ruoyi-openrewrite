@@ -1,0 +1,20 @@
+CREATE TABLE `sys_auth_cert` (
+                                 `cert_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '证书ID',
+                                 `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+                                 `cert_type` varchar(50) NOT NULL COMMENT '证书类型',
+                                 `cert_no` varchar(100) NOT NULL COMMENT '证书编号',
+                                 `cert_name` varchar(100) DEFAULT NULL COMMENT '证书姓名',
+                                 `issue_authority` varchar(200) DEFAULT NULL COMMENT '签发机关',
+                                 `issue_date` date DEFAULT NULL COMMENT '签发日期',
+                                 `expiry_date` date DEFAULT NULL COMMENT '到期日期',
+                                 `cert_status` char(1) DEFAULT '0' COMMENT '认证状态（0待审核 1已认证 2已拒绝 3已过期）',
+                                 `audit_user_id` bigint(20) DEFAULT NULL COMMENT '审核人ID',
+                                 `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
+                                 `audit_remark` varchar(500) DEFAULT NULL COMMENT '审核备注',
+                                 `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                                 `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+                                 `remark` varchar(500) DEFAULT NULL COMMENT '备注',
+                                 PRIMARY KEY (`cert_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='系统授权认证表';

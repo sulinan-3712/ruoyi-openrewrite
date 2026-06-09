@@ -19,6 +19,22 @@ public interface SysRoleMenuMapper
     public int checkMenuExistRole(Long menuId);
 
     /**
+     * 查询拥有指定菜单权限的所有角色ID
+     * 
+     * @param menuId 菜单ID
+     * @return 角色ID列表
+     */
+    public List<Long> selectRoleIdsByMenuId(Long menuId);
+
+    /**
+     * 批量为多个角色添加菜单权限（忽略重复）
+     * 
+     * @param roleMenuList 角色菜单列表
+     * @return 结果
+     */
+    public int batchInsertRoleMenuIgnore(List<SysRoleMenu> roleMenuList);
+
+    /**
      * 通过角色ID删除角色和菜单关联
      * 
      * @param roleId 角色ID

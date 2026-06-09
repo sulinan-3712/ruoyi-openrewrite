@@ -24,6 +24,7 @@ import com.sulinan.common.utils.SecurityUtils;
 import com.sulinan.common.utils.StringUtils;
 import com.sulinan.system.domain.vo.MetaVo;
 import com.sulinan.system.domain.vo.RouterVo;
+import com.sulinan.system.domain.SysRoleMenu;
 import com.sulinan.system.mapper.SysMenuMapper;
 import com.sulinan.system.mapper.SysRoleMapper;
 import com.sulinan.system.mapper.SysRoleMenuMapper;
@@ -319,8 +320,18 @@ public class SysMenuServiceImpl implements ISysMenuService
      * @return 结果
      */
     @Override
+    @Transactional
     public int updateMenu(SysMenu menu)
     {
+        // 获取修改前的菜单信息
+        SysMenu oldMenu = menuMapper.selectMenuById(menu.getMenuId());
+        
+        // 如果父菜单发生了变化，需要自动同步角色权限
+        if (oldMenu != null && !oldMenu.getParentId().equals(menu.getParentId()))
+        {
+            syncRoleMenuForParentChange(menu.getMenuId(), menu.getParentId());
+        }
+        
         return menuMapper.updateMenu(menu);
     }
 
@@ -614,5 +625,44 @@ public class SysMenuServiceImpl implements ISysMenuService
     {
         return StringUtils.replaceEach(path, new String[] { Constants.HTTP, Constants.HTTPS, Constants.WWW, ".", ":" },
                 new String[] { "", "", "", "/", "/" });
+    }
+
+    /**
+     * 当菜单的父级发生变化时，自动同步角色权限
+     * 为所有拥有该菜单的角色添加新父菜单的权限
+     * 
+     * @param menuId 菜单ID
+     * @param newParentId 新的父菜单ID
+     */
+    private void syncRoleMenuForParentChange(Long menuId, Long newParentId)
+    {
+        // 如果新父菜单是根目录（0），则不需要同步
+        if (MENU_ROOT_ID.equals(newParentId))
+        {
+            log.info("菜单 [{}] 移动到根目录，无需同步父菜单权限", menuId);
+            return;
+        }
+        
+        // 查询所有拥有该菜单权限的角色ID
+        List<Long> roleIds = roleMenuMapper.selectRoleIdsByMenuId(menuId);
+        
+        if (roleIds == null || roleIds.isEmpty())
+        {
+            log.info("菜单 [{}] 未被任何角色关联，无需同步", menuId);
+            return;
+        }
+        
+        // 为这些角色批量添加新父菜单的权限（使用 ignore 避免重复）
+        List<SysRoleMenu> roleMenuList = new ArrayList<>();
+        for (Long roleId : roleIds)
+        {
+            SysRoleMenu roleMenu = new SysRoleMenu();
+            roleMenu.setRoleId(roleId);
+            roleMenu.setMenuId(newParentId);
+            roleMenuList.add(roleMenu);
+        }
+        
+        int result = roleMenuMapper.batchInsertRoleMenuIgnore(roleMenuList);
+        log.info("菜单 [{}] 移动成功，成功同步 [{}] 个角色权限", menuId, result);
     }
 }

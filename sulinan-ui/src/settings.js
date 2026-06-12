@@ -62,5 +62,10 @@ module.exports = {
   /**
    * 底部版权文本内容
    */
-  footerContent: 'Copyright © 2018-2026 SuLiNan. All Rights Reserved.'
+  footerContent: 'Copyright © 2018-2026 SuLiNan. All Rights Reserved.',
+
+  /**
+   * 名言警句
+   */
+  quote: '“时间是一切财富中最宝贵的财富。”'
 }

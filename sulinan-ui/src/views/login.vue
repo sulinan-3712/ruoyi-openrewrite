@@ -55,8 +55,8 @@
       </el-form-item>
     </el-form>
     <!--  底部  -->
-    <div class="el-login-footer">
-      <span>{{ footerContent }}</span>
+    <div class="el-login-quote">
+      <span>{{ quote }}</span>
     </div>
   </div>
 </template>
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       title: process.env.VUE_APP_TITLE,
-      footerContent: defaultSettings.footerContent,
+      quote: defaultSettings.quote,
       codeUrl: "",
       loginForm: {
         username: "admin",
@@ -205,7 +205,7 @@ export default {
     vertical-align: middle;
   }
 }
-.el-login-footer {
+.el-login-quote {
   height: 40px;
   line-height: 40px;
   position: fixed;
@@ -213,7 +213,7 @@ export default {
   width: 100%;
   text-align: center;
   color: #fff;
-  font-family: Arial;
+  font-family: Arial,serif;
   font-size: 12px;
   letter-spacing: 1px;
 }
